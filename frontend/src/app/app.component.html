@@ -1,0 +1,19 @@
+<mat-toolbar color="primary">
+  <span>{{ title }}</span>
+</mat-toolbar>
+
+<nav class="nav-container">
+  <button mat-raised-button routerLink="/produtos" routerLinkActive="active">
+    <mat-icon>inventory</mat-icon>
+    Produtos
+  </button>
+  <button mat-raised-button routerLink="/notas-fiscais" routerLinkActive="active">
+    <mat-icon>receipt</mat-icon>
+    Notas Fiscais
+  </button>
+</nav>
+
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
+

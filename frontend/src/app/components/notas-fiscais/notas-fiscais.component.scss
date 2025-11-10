@@ -1,0 +1,49 @@
+.notas-fiscais-container {
+  padding: 20px;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+
+    h1 {
+      margin: 0;
+    }
+
+    button {
+      mat-icon {
+        margin-right: 8px;
+      }
+    }
+  }
+
+  .loading-container {
+    display: flex;
+    justify-content: center;
+    padding: 40px;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 40px;
+    color: #666;
+  }
+
+  mat-chip {
+    &.status-aberta {
+      background-color: #4caf50;
+      color: white;
+    }
+
+    &.status-fechada {
+      background-color: #757575;
+      color: white;
+    }
+  }
+}
+

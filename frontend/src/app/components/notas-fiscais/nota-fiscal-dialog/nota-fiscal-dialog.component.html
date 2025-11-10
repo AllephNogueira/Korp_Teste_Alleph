@@ -1,0 +1,65 @@
+<h2 mat-dialog-title>Nova Nota Fiscal</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="form">
+    <mat-form-field class="full-width">
+      <mat-label>Número Sequencial</mat-label>
+      <input matInput type="number" formControlName="numeroSequencial" required>
+      <mat-error *ngIf="form.get('numeroSequencial')?.hasError('required')">
+        Número sequencial é obrigatório
+      </mat-error>
+    </mat-form-field>
+
+    <div formArrayName="itens" class="itens-container">
+      <div class="itens-header">
+        <h3>Itens da Nota Fiscal</h3>
+        <button mat-raised-button type="button" color="primary" (click)="adicionarItem()">
+          <mat-icon>add</mat-icon>
+          Adicionar Item
+        </button>
+      </div>
+
+      <div *ngFor="let item of itensFormArray.controls; let i = index" [formGroupName]="i" class="item-row">
+        <mat-form-field>
+          <mat-label>Produto</mat-label>
+          <mat-select formControlName="produtoId" required>
+            <mat-option *ngFor="let produto of produtos" [value]="produto.id">
+              {{produto.codigo}} - {{produto.descricao}} (Saldo: {{produto.saldo}})
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="item.get('produtoId')?.hasError('required')">
+            Produto é obrigatório
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Quantidade</mat-label>
+          <input matInput type="number" formControlName="quantidade" required min="1">
+          <mat-error *ngIf="item.get('quantidade')?.hasError('required')">
+            Quantidade é obrigatória
+          </mat-error>
+          <mat-error *ngIf="item.get('quantidade')?.hasError('min')">
+            Quantidade deve ser maior que zero
+          </mat-error>
+        </mat-form-field>
+
+        <button mat-icon-button type="button" color="warn" (click)="removerItem(i)" title="Remover item">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+
+      <div *ngIf="itensFormArray.length === 0" class="empty-items">
+        <p>Nenhum item adicionado. Clique em "Adicionar Item" para começar.</p>
+      </div>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="cancelar()" [disabled]="loading">Cancelar</button>
+  <button mat-raised-button color="primary" (click)="salvar()" [disabled]="form.invalid || loading || itensFormArray.length === 0">
+    <mat-spinner *ngIf="loading" diameter="20" style="display: inline-block; margin-right: 8px;"></mat-spinner>
+    Salvar
+  </button>
+</mat-dialog-actions>
+
