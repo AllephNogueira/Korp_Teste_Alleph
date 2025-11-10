@@ -1,6 +1,12 @@
 # Korp_Teste - Sistema de Emissão de Notas Fiscais
 
 Sistema completo de emissão de notas fiscais desenvolvido com Angular no frontend e arquitetura de microsserviços em C# .NET no backend.
+![Imagens](imagens/1.png)
+![Imagens](imagens/2.png)
+![Imagens](imagens/3.png)
+![Imagens](imagens/4.png)
+![Imagens](imagens/5.png)
+![Imagens](imagens/6.png)
 
 ## Arquitetura
 
