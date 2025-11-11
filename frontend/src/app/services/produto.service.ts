@@ -33,10 +33,12 @@ export class ProdutoService {
   }
 
   atualizar(id: number, produto: Produto): Observable<Produto> {
+    produto.id = id; // força consistência
     return this.http.put<Produto>(`${this.apiUrl}/${id}`, produto).pipe(
       retry(3),
       catchError(this.handleError)
     );
+
   }
 
   excluir(id: number): Observable<void> {
