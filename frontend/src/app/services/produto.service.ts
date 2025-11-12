@@ -26,6 +26,11 @@ export class ProdutoService {
   }
 
   criar(produto: Produto): Observable<Produto> {
+    if (produto.saldo < 1) {
+      console.warn('Produto não será criado: valor menor que 1');
+      return throwError(() => new Error('O valor do produto deve ser maior ou igual a 1'));
+    }
+
     return this.http.post<Produto>(this.apiUrl, produto).pipe(
       retry(3),
       catchError(this.handleError)
@@ -33,13 +38,22 @@ export class ProdutoService {
   }
 
   atualizar(id: number, produto: Produto): Observable<Produto> {
-    produto.id = id; // força consistência
+    produto.id = id
     return this.http.put<Produto>(`${this.apiUrl}/${id}`, produto).pipe(
       retry(3),
       catchError(this.handleError)
     );
-
   }
+  /*
+    atualizar(id: number, produto: Produto): Observable<Produto> {
+      produto.id = id; // força consistência
+      return this.http.put<Produto>(`${this.apiUrl}/${id}`, produto).pipe(
+        retry(3),
+        catchError(this.handleError)
+      );
+  
+    }*/
+
 
   excluir(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`).pipe(
